@@ -50,7 +50,7 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.PORT || "0.0.0.0";
+const HOST = process.env.HOST || "0.0.0.0";
 app.listen(PORT, HOST, () => {
-  console.log("App is running on port ${ PORT }");
+  console.log(`App is running on port ${PORT}`);
 });
