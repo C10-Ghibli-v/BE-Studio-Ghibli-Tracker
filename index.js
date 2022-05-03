@@ -2,8 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const db = require("mongoose");
 const morgan = require("morgan");
+
 const moviesMocks = require("./mocks/moviesMocks");
 const router = require("./network/routes");
+const cors = require("cors");
 
 const app = express();
 const cors = require("cors");
@@ -27,6 +29,11 @@ const handleError = (err, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // Database mongoDb
 db.connect(
@@ -47,6 +54,8 @@ app.use((err, req, res, next) => {
   handleError(err, res);
 });
 
-app.listen(process.env.PORT || 3000, () =>
-  console.log(`server running on http://localhost:3000`)
-);
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || "0.0.0.0";
+app.listen(PORT, HOST, () => {
+  console.log(`App is running on port ${PORT}`);
+});
