@@ -22,6 +22,26 @@ router.get("/", async function (req, res) {
   }
 });
 
+router.post("/test", async function (req, res) {
+  try {
+    const insertMovie = await controller.testFunction();
+    res.status(201).json({
+      message: "Added Successfully",
+      status: 201,
+      data: {},
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Internal Error",
+      status: 500,
+      data: {},
+      success: false,
+    });
+  }
+});
+
 router.post("/", function (req, res) {
   controller
     .addMovie()
