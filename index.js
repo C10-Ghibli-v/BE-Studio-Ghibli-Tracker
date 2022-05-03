@@ -2,10 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const db = require("mongoose");
 const morgan = require("morgan");
+
 const moviesMocks = require("./mocks/moviesMocks");
 const router = require("./network/routes");
+const cors = require("cors");
 
 const app = express();
+
 const handleError = (err, res) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).json({
@@ -19,6 +22,11 @@ const handleError = (err, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // Database mongoDb
 db.connect(
