@@ -8,6 +8,13 @@ const router = require("./network/routes");
 const cors = require("cors");
 
 const app = express();
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 const handleError = (err, res) => {
   const { statusCode = 500, message } = err;
@@ -43,16 +50,6 @@ db.connect(
 // Routes
 router(app);
 
-/*
-app.get("/", (req, res) => {
-  res.status(200).send("home");
-});
-
-
-app.get("/movies", (req, res) => {
-  res.status(200).send(moviesMocks);
-});
-*/
 app.use((err, req, res, next) => {
   handleError(err, res);
 });
