@@ -10,12 +10,6 @@ const cors = require("cors");
 const app = express();
 const cors = require("cors");
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
-
 const handleError = (err, res) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).json({
