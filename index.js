@@ -2,12 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const db = require("mongoose");
 const morgan = require("morgan");
-
-const moviesMocks = require("./mocks/moviesMocks");
-const router = require("./network/routes");
 const cors = require("cors");
 
+const { createRoles } = require("./components/auth/libs/initialSetup");
+const router = require("./network/routes");
+
 const app = express();
+createRoles();
 const cors = require("cors");
 
 app.use(
