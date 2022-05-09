@@ -4,7 +4,7 @@ const { findUserByEmail } = require("../middleware/userValidator");
 
 const router = express.Router();
 
-//Middlewares Hola soy Goku
+//Middlewares
 router.use("/signin", findUserByEmail);
 
 //Routes
@@ -39,7 +39,7 @@ router.post("/signin", async (req, res) => {
     } else {
       res.status(401).json({
         status: "401",
-        fill: "Hola soy goku xd",
+        message: "Unauthorized",
       });
     }
   } catch (err) {

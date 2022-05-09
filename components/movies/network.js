@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
+const { verifyToken } = require("../middleware/authJwt");
 
+//Middlewares
+router.use("/", verifyToken);
+
+//Routes
 router.get("/", async function (req, res) {
   try {
     const moviesList = await controller.getMovies();

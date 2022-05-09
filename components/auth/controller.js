@@ -1,4 +1,5 @@
 //const User = require("../user/model");
+const store = require("../user/store");
 const jwt = require("jsonwebtoken");
 
 function signUp(userInfo) {
