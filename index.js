@@ -9,7 +9,6 @@ const router = require("./network/routes");
 
 const app = express();
 createRoles();
-const cors = require("cors");
 
 app.use(
   cors({

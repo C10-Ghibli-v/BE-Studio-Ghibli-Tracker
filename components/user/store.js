@@ -22,7 +22,7 @@ async function createUser(userInfo) {
     console.log(errors);
   }
 
-  return newUser.save();
+  return await newUser.save();
 }
 
 module.exports = {
