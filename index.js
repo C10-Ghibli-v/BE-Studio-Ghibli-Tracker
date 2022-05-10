@@ -3,6 +3,7 @@ const express = require("express");
 const db = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
+const listEndpoints = require("express-list-endpoints");
 
 const { createRoles } = require("./components/auth/libs/initialSetup");
 const router = require("./network/routes");
@@ -56,6 +57,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "0.0.0.0";
+console.log(listEndpoints(app));
 app.listen(PORT, HOST, () => {
   console.log(`App is running on port ${PORT}`);
 });

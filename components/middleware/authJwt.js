@@ -15,14 +15,29 @@ const jwt = require("jsonwebtoken");
 const verifyToken = async (req, res, next) => {
   const token = req.headers["x-access-token"];
   if (!token) {
-    return res.status(404).json({
+    return res.status(401).json({
       status: "Token not found",
-      statusCode: 404,
+      statusCode: 401,
     });
   }
-  const decoded = jwt.verify(token, process.env.SECRET);
-  console.log(decoded);
-  next();
+  //const decoded = jwt.verify(token, process.env.SECRET);
+  //console.log(decoded);
+  /*if (!decoded) {
+    return res.status(404).json({
+      status: "Invalid Token",
+      statusCode: 404,
+    });
+  }*/
+
+  try {
+    jwt.verify(token, process.env.SECRET);
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      status: "Invalid Token",
+      statusCode: 401,
+    });
+  }
 };
 
 module.exports = {

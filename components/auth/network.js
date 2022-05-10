@@ -1,11 +1,14 @@
 const express = require("express");
 const controller = require("./controller");
 const { findUserByEmail } = require("../middleware/userValidator");
+const { verifyToken } = require("../middleware/authJwt");
 
 const router = express.Router();
+const privateRouter = express.Router();
 
 //Middlewares
 router.use("/signin", findUserByEmail);
+privateRouter.use(verifyToken);
 
 //Routes
 router.post("/signup", async (req, res) => {
@@ -47,4 +50,7 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = {
+  router,
+  privateRouter,
+};

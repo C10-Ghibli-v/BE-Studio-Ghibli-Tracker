@@ -1,13 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
-const { verifyToken } = require("../middleware/authJwt");
-
-//Middlewares
-router.use("/", verifyToken);
+const { privateRouter } = require("../auth/network");
 
 //Routes
-router.get("/", async function (req, res) {
+privateRouter.get("/", async function (req, res) {
   try {
     const moviesList = await controller.getMovies();
     res.status(200).json({
@@ -89,4 +86,5 @@ router.patch("/:id", function (req, res) {
     });
 });
 
+router.use(privateRouter);
 module.exports = router;

@@ -6,7 +6,7 @@ const auth = require("../components/auth/network");
 const routes = function (server) {
   server.use("/movies", movies);
   server.use("/user", user);
-  server.use("/auth", auth);
+  server.use("/auth", auth.router);
 };
 
 module.exports = routes;

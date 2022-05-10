@@ -43,6 +43,7 @@ UserSchema.methods.createToken = async function () {
     process.env.SECRET,
     {
       expiresIn: 86400, //24 hours
+      //expiresIn: 1,
     }
   );
 

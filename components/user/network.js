@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
+const { privateRouter } = require("../auth/network");
 
-router.post("/", async (req, res) => {
-  try {
-  } catch (error) {}
+privateRouter.get("/", async (req, res) => {
+  console.log("------ENTRA----------");
 });
 
+router.use(privateRouter);
 module.exports = router;
