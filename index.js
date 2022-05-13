@@ -11,12 +11,6 @@ const router = require("./network/routes");
 const app = express();
 createRoles();
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
-
 const handleError = (err, res) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).json({
