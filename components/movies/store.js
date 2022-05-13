@@ -27,9 +27,15 @@ async function updateMovie(id, tittle) {
   return newMovie;
 }
 
+async function getMovieById(id) {
+  const foundMovie = await Model.findById(id);
+  return foundMovie;
+}
+
 module.exports = {
   add: addMovie,
   get: getMovies,
   update: updateMovie,
   insertMany: insertManyMovies,
+  getMovieById,
 };

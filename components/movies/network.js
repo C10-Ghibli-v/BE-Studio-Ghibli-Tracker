@@ -4,7 +4,7 @@ const controller = require("./controller");
 const { privateRouter } = require("../auth/network");
 
 //Routes
-privateRouter.get("/", async function (req, res) {
+router.get("/", async function (req, res) {
   try {
     const moviesList = await controller.getMovies();
     res.status(200).json({
@@ -64,26 +64,25 @@ router.post("/", function (req, res) {
     });
 });
 
-router.patch("/:id", function (req, res) {
-  controller
-    .updateMovie(req.params.id, req.body.tittle)
-    .then((data) => {
-      res.json(
-        { message: "Movie added", status: 200, data: {}, success: true },
-        200
-      );
-    })
-    .catch((e) => {
-      res.json(
-        {
-          message: "Error saving movies",
-          status: 500,
-          data: {},
-          success: false,
-        },
-        500
-      );
+router.get("/:id", async function (req, res) {
+  const id = req.params.id;
+  try {
+    const movie = await controller.getMovieById(id);
+    res.status(200).json({
+      message: "Id Found",
+      status: 200,
+      data: movie,
+      success: true,
     });
+  } catch (err) {
+    console.error(err);
+    res.status(404).json({
+      message: "Error Id Not Found",
+      status: 404,
+      data: {},
+      success: false,
+    });
+  }
 });
 
 router.use(privateRouter);
