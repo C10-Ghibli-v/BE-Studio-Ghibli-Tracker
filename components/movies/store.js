@@ -27,9 +27,22 @@ async function updateMovie(id, tittle) {
   return newMovie;
 }
 
+async function getMovieById(id) {
+  if (id.match(/^[0-9a-fA-F]{24}$/)) {
+    const foundMovie = await Model.findById(id);
+    return foundMovie;
+  } else {
+    return null;
+  }
+
+  //const foundMovie = await Model.findById(id);
+  //return foundMovie;
+}
+
 module.exports = {
   add: addMovie,
   get: getMovies,
   update: updateMovie,
   insertMany: insertManyMovies,
+  getMovieById,
 };
