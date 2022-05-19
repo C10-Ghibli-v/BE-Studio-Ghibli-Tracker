@@ -46,6 +46,7 @@ db.connect(
 
 //Testing
 /*const config = {
+  asd
   authRequired: false,
   auth0Logout: true,
   secret: "a long, randomly-generated string stored in env",
