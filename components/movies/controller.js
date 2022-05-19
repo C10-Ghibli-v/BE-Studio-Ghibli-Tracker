@@ -45,6 +45,9 @@ async function addMovie() {
 function getMovies() {
   return new Promise(async (resolve, reject) => {
     const moviesList = await store.get();
+    if (!moviesList) {
+      reject("Movies not found");
+    }
     resolve(moviesList);
   });
 }
@@ -61,8 +64,30 @@ function updateMovie(id, tittle) {
   });
 }
 
+function getMovieById(id) {
+  return new Promise(async (resolve, reject) => {
+    const movie = await store.getMovieById(id);
+    if (!movie) {
+      reject("Movies not found");
+    }
+    resolve(movie);
+  });
+}
+
+function getMoviesAndUserData(_id) {
+  return new Promise(async (resolve, reject) => {
+    const moviesList = await store.getScores(_id);
+    if (!moviesList) {
+      reject("[Controller] Internal Error");
+    }
+    resolve(moviesList);
+  });
+}
+
 module.exports = {
   addMovie,
   getMovies,
   updateMovie,
+  getMovieById,
+  getMoviesAndUserData,
 };

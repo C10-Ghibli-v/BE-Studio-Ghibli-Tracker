@@ -2,19 +2,16 @@ require("dotenv").config();
 const express = require("express");
 const db = require("mongoose");
 const morgan = require("morgan");
-
-const moviesMocks = require("./mocks/moviesMocks");
-const router = require("./network/routes");
 const cors = require("cors");
+const listEndpoints = require("express-list-endpoints");
+//Testing
+//const { auth } = require("express-openid-connect");
+
+const { createRoles } = require("./components/auth/libs/initialSetup");
+const router = require("./network/routes");
 
 const app = express();
-const cors = require("cors");
-
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+createRoles();
 
 const handleError = (err, res) => {
   const { statusCode = 500, message } = err;
@@ -47,6 +44,24 @@ db.connect(
     return process.exit(1);
   });
 
+//Testing
+/*const config = {
+  asd
+  authRequired: false,
+  auth0Logout: true,
+  secret: "a long, randomly-generated string stored in env",
+  baseURL: "http://localhost:3000",
+  clientID: "GCl3e4AahV1UbVnB5wclt3p8qrSu8YWo",
+  issuerBaseURL: "https://dev-aililkpc.us.auth0.com",
+};
+
+app.use(auth(config));*/
+
+// req.isAuthenticated is provided from the auth router
+/*app.get("/test", (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+});*/
+
 // Routes
 router(app);
 
@@ -56,6 +71,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "0.0.0.0";
+console.log(listEndpoints(app));
 app.listen(PORT, HOST, () => {
   console.log(`App is running on port ${PORT}`);
 });
