@@ -4,6 +4,8 @@ const db = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 const listEndpoints = require("express-list-endpoints");
+//Testing
+//const { auth } = require("express-openid-connect");
 
 const { createRoles } = require("./components/auth/libs/initialSetup");
 const router = require("./network/routes");
@@ -41,6 +43,23 @@ db.connect(
     console.log(err);
     return process.exit(1);
   });
+
+//Testing
+/*const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: "a long, randomly-generated string stored in env",
+  baseURL: "http://localhost:3000",
+  clientID: "GCl3e4AahV1UbVnB5wclt3p8qrSu8YWo",
+  issuerBaseURL: "https://dev-aililkpc.us.auth0.com",
+};
+
+app.use(auth(config));*/
+
+// req.isAuthenticated is provided from the auth router
+/*app.get("/test", (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+});*/
 
 // Routes
 router(app);

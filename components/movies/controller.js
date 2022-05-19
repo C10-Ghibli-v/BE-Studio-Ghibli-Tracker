@@ -74,9 +74,20 @@ function getMovieById(id) {
   });
 }
 
+function getMoviesAndUserData(_id) {
+  return new Promise(async (resolve, reject) => {
+    const moviesList = await store.getScores(_id);
+    if (!moviesList) {
+      reject("[Controller] Internal Error");
+    }
+    resolve(moviesList);
+  });
+}
+
 module.exports = {
   addMovie,
   getMovies,
   updateMovie,
   getMovieById,
+  getMoviesAndUserData,
 };

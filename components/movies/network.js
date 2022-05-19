@@ -6,9 +6,14 @@ const { privateRouter } = require("../auth/network");
 //Routes
 router.get("/", async function (req, res) {
   try {
-    const moviesList = await controller.getMovies();
+    let moviesList = null;
+    if (!req._id) {
+      moviesList = await controller.getMovies();
+    } else {
+      moviesList = await controller.getMoviesAndUserData(req._id);
+    }
     res.status(200).json({
-      message: "Movie added",
+      message: "List Movies",
       status: 200,
       data: moviesList,
       success: true,
@@ -16,7 +21,7 @@ router.get("/", async function (req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      message: "Error saving movies",
+      message: "[Movies Controller] Internal Error",
       status: 500,
       data: {},
       success: false,

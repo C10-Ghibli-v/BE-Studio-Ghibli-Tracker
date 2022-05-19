@@ -16,6 +16,10 @@ const MovieSchema = new Schema({
   image: String,
   description: String,
   rtScore: String,
+  userScore: {
+    ref: "Score",
+    type: Schema.Types.ObjectId,
+  },
 });
 
 const model = mongoose.model("Movie", MovieSchema);
