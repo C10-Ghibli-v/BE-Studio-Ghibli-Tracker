@@ -2,16 +2,22 @@ const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
 const { privateRouter } = require("../auth/network");
+const jwt = require("jsonwebtoken");
 
 //Routes
 router.get("/", async function (req, res) {
   try {
     let moviesList = null;
-    if (!req._id) {
-      moviesList = await controller.getMovies();
-    } else {
-      moviesList = await controller.getMoviesAndUserData(req._id);
+    const token = req.header("x-access-token");
+    if (token) {
+      const signature = jwt.verify(token, process.env.SECRET);
+      req.user = signature;
     }
+    /*if (!req._id) {
+      moviesList = await controller.getMovies();
+    } else {*/
+    moviesList = await controller.getMoviesAndUserData(req.user.id);
+    //}
     res.status(200).json({
       message: "List Movies",
       status: 200,

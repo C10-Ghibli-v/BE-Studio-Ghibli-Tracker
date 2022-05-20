@@ -50,6 +50,12 @@ UserSchema.methods.createToken = async function () {
   return token;
 };
 
+UserSchema.virtual("scores", {
+  ref: "Score",
+  localField: "_id",
+  foreignField: "userId",
+});
+
 UserSchema.methods.comparePassword = async function (receivedPassword) {
   return await bcrypt.compare(receivedPassword, this.password);
 };
