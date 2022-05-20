@@ -1,5 +1,5 @@
 const Model = require("./model");
-//const Score = require("../score/model");
+const Score = require("../score/model");
 
 function addMovie(moviesList) {
   return moviesList.map((movie) => {
@@ -38,12 +38,11 @@ async function getMovieById(id) {
 }
 
 async function getScores(_id) {
-  /*const moviesList = await Model.find().populate({
-    path: "userScore",
-    match: { _id },
-  });*/
-  const moviesList = await Model.find().populate("userScore");
-  return moviesList;
+  return await Model.find().populate({
+    path: "scores",
+    match: { userId: _id },
+    select: "scores watched -_id -movieId",
+  });
 }
 
 module.exports = {
